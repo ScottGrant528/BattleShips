@@ -14,8 +14,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         System.out.println("----Starting program!----");
 
-        Peer p = new Peer();
-        p.newPeer();
     
     }
 }
