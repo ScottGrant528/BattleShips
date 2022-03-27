@@ -2,6 +2,7 @@ package uk.ac.rgu.battleships.gameboard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Currency;
 
 // Class to model a game board
 
@@ -23,17 +24,22 @@ public class GameBoard {
         this.boats = boats;
     }
     
+    // Add a boat to the game board
+    public void addBoat(Boat boat) {
+        this.boats.add(boat);
+    }
+
     // Get a certian boat from an index
     public Boat getBoat(int pos) {
         return this.boats.get(pos);
     }
     
     // Get a boat by its checkPos
-    public Boat getBoatByPos(int[] pos) {
+    public Boat getBoatByPos(int posX, int posY) {
         Boat result = null;
 
         for (Boat current : getBoats()) {
-            if (current.getBoatOrigin().equals(pos)) {
+            if ((current.getBoatX() == posX) && (current.getBoatY() == posY)) {
                 result = current;
             }
         }
@@ -41,41 +47,69 @@ public class GameBoard {
         return result;
     }
     
-    // Checks a tile for a boat, returns it
-    public Boolean checkTile(int[] pos) {
+    // Update boat
+    public void foundBoat(Boat boat) {
+        for (Boat current : getBoats()) {
+            current.setFound(true);
+        }
+    }
+    
+    // Checks a tile for a boat
+    public Boat checkTile(int posX, int posY) {
+        Boat result = null;
 
         // Iteratting over the list of boats
         for (Boat current : getBoats()) {
-            int[] currentBoatPos = current.getBoatOrigin(); int currentX = currentBoatPos[0]; int currentY = currentBoatPos[1];
-
-            // Chechking boats origin point
-            if (current.getBoatOrigin().equals(currentBoatPos)) {
-                return true;
+            
+            // Checking the origin point of the boat
+            if ((current.getBoatX() == posX) && (current.getBoatY() == posY)) {
+                return current;
             }
 
-            /*
             // Checking the boats direction
             if (current.getDirection().equals(BoatDirection.NORTH)) {
                 for (int index = 0; index < current.getLength(); index++) {
-                    if (currentX == index) {
-                        return true;
+                    if ((current.getBoatX() == posX) && (current.getBoatY() == (posY + index))) {
+                        return current;
                     }
                 }
             } else if (current.getDirection().equals(BoatDirection.EAST)) {
-                for (int index = 0; index < current.getLength()) {
-                    
+                for (int index = 0; index < current.getLength(); index++) {
+                    if ((current.getBoatX()) == (posX - index) && (current.getBoatY() == posY)) {
+                       return current;
+                    }
                 }
             } else if (current.getDirection().equals(BoatDirection.SOUTH)) {
-
+                for (int index = 0; index < current.getLength(); index++) {
+                    if ((current.getBoatX() == posX) && (current.getBoatY() == (posY - index))) {
+                        return current;
+                    }
+                }
             } else if (current.getDirection().equals(BoatDirection.WEST)) {
-
+                for (int index = 0; index < current.getLength(); index++) {
+                    if ((current.getBoatX() == (posX + index)) && (current.getBoatY() == posY)) {
+                        return current;
+                    }
+                }
             }
-            */
+            
         }
 
-        return false;
+        return result;
     }
-    
+    // Function to check if the game is complete
+    public boolean isComplete() {
+        Boolean result = false;
+
+        for (Boat current : getBoats()) {
+            if (current.getFound()) {
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
     // toString method
     public String toString() {
 
@@ -92,7 +126,7 @@ public class GameBoard {
 
         for (int index = 0; index < tempGameBoard.length; index++) {
             for (int jindex = 0; jindex < tempGameBoard[0].length; jindex++) {
-                tempGameBoard[index][jindex] = "0";
+                tempGameBoard[index][jindex] = " ";
             }
         }
 
@@ -157,11 +191,15 @@ public class GameBoard {
                 }
             };
         };
+
         String result = "";
 
         for (int index = 0; index < tempGameBoard.length; index++) {
             for (int jindex = 0; jindex < tempGameBoard[0].length; jindex++) {
-                if (tempGameBoard.equals("")) {
+
+                if ((checkTile(jindex, index) != null) && (checkTile(jindex, index).getFound())) {
+                    result += "*";
+                } else if (tempGameBoard[index][jindex].equals("")) {
                     result += " ";
                 } else {
                     result += tempGameBoard[index][jindex];

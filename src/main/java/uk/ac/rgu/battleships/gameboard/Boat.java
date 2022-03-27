@@ -7,14 +7,26 @@ public class Boat {
     private String id;
     private int length;
     private BoatDirection direction;
-    private int[] boatOrigin = new int[2];
+    private int boatx; private int boaty; //boatymcboatface
+    private boolean found;
 
     // Constructor
-    public Boat(String id, int length, BoatDirection direction, int[] boatOrigin) {
+    public Boat(String id, int length, BoatDirection direction, int boatx, int boaty, boolean found) {
         this.id = id;
         this.length = length;
         this.direction = direction;
-        this.boatOrigin = boatOrigin;
+        this.boatx = boatx + 1;
+        this.boaty = boaty + 1;
+        this.found = found;
+    }
+
+    public Boat(String id, int length, BoatDirection direction, int boatx, int boaty) {
+        this.id = id;
+        this.length = length;
+        this.direction = direction;
+        this.boatx = boatx + 1;
+        this.boaty = boaty + 1;
+        this.found = false;
     }
 
     // Getters and setters
@@ -42,20 +54,33 @@ public class Boat {
         this.direction = direction;
     }
     
-    public int[] getBoatOrigin() {
-        return this.boatOrigin;
+    public int getBoatX() {
+        return this.boatx;
     }
     
-    public void setBoatOrigin(int[] boatOrigin){
-        this.boatOrigin = boatOrigin;
+    public void setBoatX(int boatx) {
+        this.boatx = boatx;
+    }
+
+    public int getBoatY() {
+        return this.boaty;
+    }
+
+    public void setBoatY(int boaty) {
+        this.boaty = boaty;
     }
     
-    public String getBoatOriginString() {
-        return "[" + String.valueOf(getBoatOrigin()[0]) + "," + String.valueOf(getBoatOrigin()[1]) + "]";
+    public boolean getFound(){
+        return this.found;
     }
+
+    public void setFound(Boolean found) {
+        this.found = found;
+    }
+    
     // To string method
     public String toString(){
         return ("id = " + getId() + "\nlength = " + getLength() + "\ndirection = " + 
-        getDirection().toString() + " \nboatOrigin = " + getBoatOriginString());
+        getDirection().toString() + " \nboatOrigin = " + "[" + getBoatX() + "," + getBoatY() + "]" + "\nfound = " + getFound());
     }
 } 
