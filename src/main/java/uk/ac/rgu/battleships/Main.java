@@ -9,8 +9,11 @@ import uk.ac.rgu.battleships.gameboard.*;
 public class Main {
     public static void main(String[] args) throws Exception {
         System.out.println("----Starting program!----");
-        int[] b1BoatOrigin = {2,4};
-        Boat b1 = new Boat("Submarine", 2, BoatDirection.NORTH, b1BoatOrigin);
-        System.out.println(b1.toString());
+        //int[] b1BoatOrigin = {2,4};
+        //Boat b1 = new Boat("Submarine", 2, BoatDirection.NORTH, b1BoatOrigin);
+        //System.out.println(b1.toString());
+
+        GameBoard gameBoard = new GameBoard();
+        System.out.println("Player One:\n" + gameBoard.toString());
     }
 }
