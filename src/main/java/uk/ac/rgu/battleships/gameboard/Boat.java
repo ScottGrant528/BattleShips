@@ -1,7 +1,11 @@
 package uk.ac.rgu.battleships.gameboard;
 
-// Class to model a boat
+/**
+ *
+ * @author euan & scottjjwd
+ */
 
+// Class to model a boat
 public class Boat {
     // Attributes
     private String id;

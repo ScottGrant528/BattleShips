@@ -1,7 +1,11 @@
 package uk.ac.rgu.battleships.gameboard;
 
-// Enum to model a boats direction
+/**
+ *
+ * @author euan & scottjjwd
+ */
 
+// Enum to model a boats direction
 public enum BoatDirection {
     NORTH, 
     EAST,

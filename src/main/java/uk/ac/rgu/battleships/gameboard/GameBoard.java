@@ -1,11 +1,13 @@
 package uk.ac.rgu.battleships.gameboard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Currency;
+
+/**
+ *
+ * @author euan & scottjjwd
+ */
 
 // Class to model a game board
-
 public class GameBoard {
     // Attributes
     private ArrayList<Boat> boats;
